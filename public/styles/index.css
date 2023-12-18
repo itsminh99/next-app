@@ -1,0 +1,44 @@
+.position-center {
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition:
+    background-color 600000s 0s,
+    color 600000s 0s !important;
+  box-shadow: none !important;
+}
+
+/* width */
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Track */
+.scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 2px;
+}
+
+/* Handle */
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+  cursor: pointer;
+}

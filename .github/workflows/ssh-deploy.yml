@@ -1,0 +1,39 @@
+name: Deployment Workflow
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches:
+      - main
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # - name: Setup Node
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: latest
+      #     cache: 'yarn'
+      # - run: yarn install --frozen-lockfile
+      # - run: yarn test
+      - name: Pull latest commit and deploy on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        env:
+          NODE_VERSION: latest
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            mkdir next-app
+            cd next-app
+            eval `ssh-agent -s`
+            ssh-add ~/.ssh/id_ed25519
+            git pull origin main
+            yarn install
+            yarn build
+            pm2 restart app
